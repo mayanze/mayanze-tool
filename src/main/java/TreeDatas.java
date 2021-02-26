@@ -54,8 +54,11 @@ public class TreeDatas {
     @Test
     public void getTreeData() {
         List<Map<String, Object>> datas = getDatas();
-        List<Map<String, Object>> child = getChild("1", datas);
-        System.out.println(child);
+        Map<String, Object> root = datas.stream().filter(d -> d.get("id").toString().equals("11")).findAny().orElse(null);
+        List<Map<String, Object>> child = getChild("11", datas);
+        System.out.println(child);//子节点
+        root.put("children",getChild(root.get("id").toString(),datas));//当前节点，及子节点
+        System.out.println(root);
     }
 
     public List<Map<String, Object>> getChild(String parendId, List<Map<String, Object>> datas) {
